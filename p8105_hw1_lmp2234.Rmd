@@ -12,10 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ##Problem 1
 
 ```{r}
-install.packages("palmerpenguins")
+library(palmerpenguins)
 
 data("penguins",package="palmerpenguins")
-data(penguins)
 
 row_num<-nrow(penguins)
 col_num<-ncol(penguins)
@@ -27,4 +26,18 @@ mean_flipper<-mean(penguins$flipper_length_mm, na.rm = TRUE)
 **The penguins data set contains information about different species of penguins and their characteristics. The variables include species, island, bill length, bill depth, flipper length, body mass index, sex, and year. The dataset has `r row_num` rows and `r col_num` columns. The mean flipper length is `r mean_flipper` mm.** 
 
 
+```{r}
+library(tidyverse)
+
+set.seed(1234)
+
+ggplot(penguins, aes(x=bill_length_mm, y = flipper_length_mm, color = species)) + 
+  geom_point() +
+  labs(title = "Flipper length vs Bill Length Scatterplot", 
+      x = "Bill Length (mm)",
+      y = "Flipper Length (mm)")
+
+ggsave("scatter_plot.pdf", height = 4, width =6)
+
+```
 
