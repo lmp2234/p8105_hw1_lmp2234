@@ -9,22 +9,22 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+##Problem 1
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r}
+install.packages("palmerpenguins")
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+data("penguins",package="palmerpenguins")
+data(penguins)
 
-```{r cars}
-summary(cars)
+row_num<-nrow(penguins)
+col_num<-ncol(penguins)
+
+mean_flipper<-mean(penguins$flipper_length_mm, na.rm = TRUE)
+
 ```
 
-## Including Plots
+**The penguins data set contains information about different species of penguins and their characteristics. The variables include species, island, bill length, bill depth, flipper length, body mass index, sex, and year. The dataset has `r row_num` rows and `r col_num` columns. The mean flipper length is `r mean_flipper` mm.** 
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
