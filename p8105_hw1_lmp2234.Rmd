@@ -28,6 +28,7 @@ mean_flipper<-mean(penguins$flipper_length_mm, na.rm = TRUE)
 
 ```{r}
 library(tidyverse)
+library(ggplot2)
 
 set.seed(1234)
 
@@ -40,4 +41,48 @@ ggplot(penguins, aes(x=bill_length_mm, y = flipper_length_mm, color = species)) 
 ggsave("scatter_plot.pdf", height = 4, width =6)
 
 ```
+
+##Problem 2
+
+```{r}
+library(tidyverse)
+set.seed(123)
+
+problem2_df <- tibble(
+  normal_sample = rnorm(10), 
+  log_vector = rnorm(10) > 0, 
+  char_vector = sample(letters[1:3], 10, replace = TRUE), 
+  factor_vector = factor(sample(c("Level1","Level2", "Level3"),10, replace = TRUE)))
+  
+problem2_df
+
+mean_normal <- mean(pull(problem2_df,normal_sample))
+mean_logical <- mean(pull(problem2_df,log_vector))
+mean_char <- mean(pull(problem2_df,char_vector))
+mean_factor <- mean(pull(problem2_df,factor_vector))
+
+mean_normal
+mean_logical
+mean_char
+mean_factor
+```
+**Taking the mean of the normal and logical vector works. However, taking the mean 
+of the character and factor vectors does not work.**
+
+```{r}
+numeric_logical <- as.numeric(pull(problem2_df,log_vector))
+numeric_char <- as.numeric(pull(problem2_df,char_vector))
+numeric_factor <- as.numeric(pull(problem2_df,factor_vector))
+```
+
+
+
+**When as.numeric is applied to the logical vector, TRUE corresponds to 1 and FALSE corresponds to 0. This enables the mean to be computed when converted as it is now numeric.** 
+
+**When as.numeric is applied to the character vector, all values turn into NA. R is not able to turn non-numeric characters into numeric values which means the mean cannot be calculated.** 
+
+**When as.numeric is applied to the factor vector, the levels become numeric. However, it is not clear which level corresponds to which number, so although mean can be calculated, it may not be interpreted correctly.** 
+
+
+ 
 
